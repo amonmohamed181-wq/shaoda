@@ -1,0 +1,170 @@
+*{box-sizing:border-box}
+:root{
+  --pink:#ff9ecf;
+  --pink2:#ff5fa9;
+  --gold:#ffd48a;
+  --cream:#fff6fb;
+  --dark:#080714;
+  --glass:rgba(255,255,255,.075);
+}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--dark);
+  color:#fff;
+  font-family:"Cairo",sans-serif;
+  overflow-x:hidden;
+}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:20}
+.hero,.message{
+  min-height:100vh;
+  position:relative;
+  overflow:hidden;
+}
+.hero{
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(255,105,180,.16),transparent 25%),
+    radial-gradient(circle at 80% 15%,rgba(255,210,130,.10),transparent 20%),
+    linear-gradient(135deg,#050511,#13091a 50%,#060711);
+}
+.hero:before{
+  content:"";
+  position:absolute;inset:-10%;
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:55px 55px;
+  transform:perspective(600px) rotateX(60deg) translateY(25%);
+  opacity:.5;
+}
+.moon{
+  position:absolute;top:8%;right:10%;width:130px;height:130px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff9df,#ffdca2 55%,#b27b70);
+  box-shadow:0 0 55px rgba(255,214,145,.5);
+}
+.stars,.stars:before,.stars:after{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(#fff 1px,transparent 1.5px);
+  background-size:95px 95px;
+  opacity:.35;
+  animation:drift 18s linear infinite;
+}
+.stars:before{background-size:145px 145px;animation-duration:28s;opacity:.25}
+.stars:after{background-size:220px 220px;animation-duration:40s;opacity:.18}
+@keyframes drift{to{transform:translate3d(-70px,50px,0)}}
+
+.hero-card{
+  width:min(720px,90%);
+  text-align:center;
+  padding:55px 35px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(12,8,24,.52);
+  backdrop-filter:blur(18px);
+  border-radius:34px;
+  box-shadow:0 30px 90px rgba(0,0,0,.5), inset 0 1px rgba(255,255,255,.12);
+  transform:translateY(0) perspective(1000px) rotateX(0deg);
+  animation:cardFloat 5s ease-in-out infinite;
+  z-index:3;
+}
+@keyframes cardFloat{50%{transform:translateY(-10px) perspective(1000px) rotateX(1deg)}}
+.tiny-crown{font-size:34px;color:var(--gold);text-shadow:0 0 18px #ffbf67}
+h1{
+  margin:0;
+  font-size:clamp(70px,13vw,135px);
+  line-height:1;
+  background:linear-gradient(120deg,#fff,#ffc0dd 40%,#ffd789);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 25px rgba(255,137,194,.35));
+}
+.line{color:var(--pink);font-size:30px;margin:10px}
+.hero-card p{font-size:18px;line-height:2;color:#f6e9f1;margin:3px}
+.glow-btn,.soft-btn{
+  border:0;cursor:pointer;color:white;font:700 16px "Cairo",sans-serif;
+}
+.glow-btn{
+  margin-top:32px;padding:17px 30px;border-radius:999px;
+  background:linear-gradient(100deg,#ff5caa,#b26cff);
+  box-shadow:0 0 0 1px rgba(255,255,255,.18),0 0 30px rgba(255,85,170,.5);
+  transition:.3s;
+}
+.glow-btn:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 0 50px rgba(255,85,170,.75)}
+.glow-btn b{margin-right:12px;font-size:20px}
+.scroll-hint{position:absolute;bottom:25px;color:#d7c5d2;font-size:12px;opacity:.75}
+
+.message{
+  min-height:100vh;padding:100px 5vw 35px;
+  display:grid;place-items:center;
+  background:
+    radial-gradient(circle at 75% 45%,rgba(255,92,169,.13),transparent 30%),
+    radial-gradient(circle at 20% 70%,rgba(255,210,120,.08),transparent 25%),
+    linear-gradient(145deg,#090712,#170b18,#060611);
+}
+.content-wrap{
+  width:min(1200px,100%);
+  display:grid;grid-template-columns:1fr 1.05fr;gap:65px;
+  align-items:center;z-index:2;
+}
+.photo-card{perspective:1200px;position:relative}
+.photo-frame{
+  position:relative;width:min(100%,500px);margin:auto;
+  padding:13px;background:linear-gradient(145deg,#ffe0ed,#9c6b86 50%,#ffd88d);
+  border-radius:25px;box-shadow:25px 35px 80px rgba(0,0,0,.6);
+  transform:rotateY(5deg) rotateX(2deg);
+  transition:transform .6s;
+}
+.photo-frame:hover{transform:rotateY(-5deg) rotateX(-2deg) translateY(-8px)}
+.photo-frame img{
+  display:block;width:100%;height:600px;object-fit:cover;object-position:center;
+  border-radius:16px;
+}
+.photo-caption{
+  position:absolute;bottom:24px;left:24px;right:24px;
+  padding:10px;text-align:center;border-radius:14px;
+  background:rgba(5,4,10,.62);backdrop-filter:blur(10px);
+  font-size:18px;color:#ffe8f2;
+}
+.photo-glow{position:absolute;inset:15%;background:#ff69b4;filter:blur(100px);opacity:.16}
+.letter{
+  padding:42px;border-radius:30px;background:var(--glass);
+  border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(17px);
+  box-shadow:0 25px 70px rgba(0,0,0,.38);
+}
+.eyebrow{color:var(--gold);font-size:14px;margin-bottom:8px}
+.letter h2{font-size:clamp(28px,4vw,48px);line-height:1.35;margin:0;color:#ffd3e5}
+.heart-divider{color:#ff94c8;margin:15px 0;font-size:18px}
+.letter p{color:#eadde6;line-height:2.05;font-size:17px}
+.special-note{
+  margin:30px 0;padding:18px;border-radius:20px;
+  background:linear-gradient(90deg,rgba(255,99,170,.13),rgba(255,211,133,.10));
+  border:1px solid rgba(255,196,220,.16);text-align:center;
+  color:#ffe4a9;font-size:18px;
+}
+.special-note span{margin:0 10px}
+.soft-btn{
+  background:transparent;border:1px solid rgba(255,255,255,.2);
+  padding:12px 20px;border-radius:999px;color:#ffd7e8;transition:.25s;
+}
+.soft-btn:hover{background:rgba(255,255,255,.08);transform:translateY(-2px)}
+footer{position:absolute;bottom:15px;color:#9f8d9b;font-size:11px;z-index:2}
+
+.petal{
+  position:fixed;width:10px;height:17px;border-radius:70% 10% 70% 10%;
+  background:linear-gradient(140deg,#ffb1d4,#ff4d9c);
+  pointer-events:none;z-index:25;opacity:.9;
+  animation:fall linear forwards;
+}
+@keyframes fall{to{transform:translate3d(var(--x),110vh,0) rotate(620deg);opacity:0}}
+
+@media(max-width:850px){
+  .moon{width:80px;height:80px;top:6%;right:7%}
+  .hero-card{padding:40px 20px}
+  .hero-card p{font-size:15px}
+  .content-wrap{grid-template-columns:1fr;gap:35px}
+  .photo-frame{max-width:420px}
+  .photo-frame img{height:520px}
+  .letter{padding:28px 22px}
+  .letter p{font-size:15px}
+  .message{padding-top:70px}
+}
